@@ -59,7 +59,9 @@ namespace MRCase.API
                 });
 
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            services.AddDbContext<ApplicationDbContext>(opt =>
+                opt.UseInMemoryDatabase("MRCaseDb"));
             services.AddScoped<IDataService, DataService>();
 
             //ActionFilter
