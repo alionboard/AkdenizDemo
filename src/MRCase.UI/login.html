@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRCase</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/ico" href="img/pen.ico" />
+</head>
+
+<body class="vertical-center">
+    <div id="loading" class="d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="container card shadow d-flex justify-content-center mt-5" style="margin-top:5rem;">
+        <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                    aria-controls="pills-home" aria-selected="true">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span id="loginText">Giriş</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="btnRegisterForm" class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                    role="tab" aria-controls="pills-profile" aria-selected="false">
+                    <i class="fas fa-user-plus"></i>
+                    <span id="registerText">Kayıt Ol</span>
+                </a>
+            </li>
+            <li class="nav-item ml-auto ">
+                <a href="Javascript:changeLanguage('tr-TR')"><img class="language" src="img/turkey.png"
+                        alt="Turkish"></a>
+                <a class="mr-1" href="Javascript:changeLanguage('it-IT')"><img class="language" src="img/italy.png"
+                        alt="Italian"></a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent p-3">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="form addinfo">
+                    <div class="form-group text-center">
+                        <img class="card-img-top" src="img/appicon.png" alt="Card image" style="width:8em">
+                        <form id="loginForm" action="POST">
+                            <input id="loginUsername" class="form-control mt-3 d-block mx-auto login" type="text"
+                                placeholder="Kullanıcı Adı" name="username" required />
+
+                            <div class="input-group mt-3 login mx-auto">
+                                <input type="password" class="form-control" placeholder="Parola" id="loginPassword"
+                                    name="password" required minlength="6">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control">
+                                        <i class="fas fa-eye eye" id="loginEye" onclick="showLoginPassword()"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <label class="mt-3">
+                                <input id="rememberMe" type="checkbox" value="rememberMe"> <span
+                                    id="rememberMeText">Beni Hatırla</span>
+                            </label>
+                            <button class="btn btn-primary mt-2 mx-auto d-block mb-5">
+                                <i class="fas fa-check"></i>
+                                <span id="loginBtnText">Giriş</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="text-center">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="form addinfo">
+                    <div class="form-group text-center">
+                        <img class="card-img-top" src="img/appicon.png" alt="Card image" style="width:8em">
+                        <form id="registerForm" action="POST">
+                            <input class="form-control mt-3 d-block mx-auto login" type="text"
+                                placeholder="Kullanıcı Adı" required name="Username" id="registerUsername" />
+
+                            <div class="input-group mt-3 login mx-auto">
+                                <input type="password" class="form-control" placeholder="Parola" id="registerPassword"
+                                    required minlength="6" name="Password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control">
+                                        <i class="fas fa-eye eye" id="registerEye" onclick="showRegisterPassword()"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mx-auto d-block mt-3 mb-5">
+                                <i class="fas fa-check"></i>
+                                <span id="registerBtnText">Kayıt Ol</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script type='text/javascript'
+        src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210618091838_DataAdded.cs" />
+    <Compile Remove="Migrations\20210618091838_DataAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210618093717_DataTableAdded.cs" />
+    <Compile Remove="Migrations\20210618093717_DataTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210618144956_DataTableAndUserPropChanges.cs" />
+    <Compile Remove="Migrations\20210618144956_DataTableAndUserPropChanges.Designer.cs" />
+    <Compile Remove="Migrations\20210619114958_sa.cs" />
+    <Compile Remove="Migrations\20210619114958_sa.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.16">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MRCase.Core\MRCase.Core.csproj" />
+  </ItemGroup>
+
+</Project>
