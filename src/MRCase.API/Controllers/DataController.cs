@@ -47,10 +47,30 @@ namespace MRCase.API.Controllers
 
         //Get User Data
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DatumResponseDto>>> Get([FromQuery] PagingParameters pagingParameters)
+        public async Task<ActionResult<IEnumerable<DatumResponseDto>>> Get([FromQuery] PagingParameters pagingParameters,string sortOrder)
         {
             var data = await dataService.GetPagedDataAsync(pagingParameters, UserId);
+            List<Datum> sortedData;
 
+        if (!string.IsNullOrEmpty(sortOrder))
+    {
+            switch(sortOrder.ToLower()){
+                case "asc":
+                   sortedData = data.OrderBy(d => GetEventSortingText(d.Event)).ToList();
+                   break;
+                case "desc":
+                   sortedData = data.OrderByDescending(d => GetEventSortingText(d.Event)).ToList();
+                   break;
+                default:
+                  sortedData = data;
+                   break;
+            }
+    }
+    else
+    {
+        sortedData = data;
+    
+    }
             var metadata = new
             {
                 data.TotalCount,
@@ -60,9 +80,23 @@ namespace MRCase.API.Controllers
                 data.HasPrevious
             };
 
+            var pagedData = new PagedList<Datum>(sortedData, metadata.TotalCount, metadata.PageSize, metadata.CurrentPage);
+
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            return Ok(mapper.Map<PagedList<Datum>, DatumResponseDto[]>(data));
+            return Ok(mapper.Map<PagedList<Datum>, DatumResponseDto[]>(pagedData));
+        }
+
+
+        private string GetEventSortingText(string eventText){
+
+            int separatorIndex = eventText.IndexOf("-");
+            if(separatorIndex != -1 && separatorIndex < eventText.Length-1){
+
+                return eventText.Substring(separatorIndex+1).Trim();
+            }
+
+            return eventText;
         }
 
         //Import Json File
@@ -92,11 +126,12 @@ namespace MRCase.API.Controllers
             if (cultureInfo.Name == "it-IT")
             {
                 var data = JsonConvert.DeserializeObject<List<ImportDataITDto>>(result.ToString());
-
+                
                 //Checking valid language
                 if (data.Any(x => x.dc_Evento == null))
                     throw new ArgumentException(localizer["NotValidLangFile"].Value);
-
+                
+                
                 dataService.ImportData(mapper.Map<Datum[]>(data), UserId);
 
                 if (await dataService.SaveChangesAsync())
@@ -111,6 +146,7 @@ namespace MRCase.API.Controllers
                 if (data.Any(x => x.dc_Olay == null))
                     throw new ArgumentException(localizer["NotValidLangFile"].Value);
 
+               
                 dataService.ImportData(mapper.Map<Datum[]>(data), UserId);
 
                 if (await dataService.SaveChangesAsync())
